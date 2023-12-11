@@ -70,7 +70,7 @@ exports.register = (req, res) => {
             isVerified: false,
         }).then(user => {
             mailer.sendMail({
-                from: "no-reply@trojans.id",
+                from: "no-reply@trojans.site",
                 to: req.body.email,
                 subject: "TROJANS 2024 Registration",
                 text: `
@@ -138,7 +138,7 @@ exports.manualRegister = (body) => {
             isVerified: false,
         }).then(user => {
             mailer.sendMail({
-                from: "no-reply@trojans.id",
+                from: "no-reply@trojans.site",
                 to: body.email,
                 subject: "TROJANS 2024 Registration",
                 text: `

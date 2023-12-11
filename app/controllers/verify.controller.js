@@ -24,7 +24,7 @@ exports.verify = async (req, res) => {
         for (const response of responses) {
             try {
                 await mailer.sendMail({
-                    from: "no-reply@trojans.id",
+                    from: "no-reply@trojans.site",
                     to: response.email,
                     subject: "TROJANS 2024 Registration Verified",
                     text: `
@@ -83,7 +83,7 @@ exports.decline = async (req, res) => {
                     await Response.update({ isVerified: false }, { where: { email: emails, name:name } });
                 }
                 await mailer.sendMail({
-                    from: "no-reply@trojans.id",
+                    from: "no-reply@trojans.site",
                     to: response.email,
                     subject: "TROJANS 2024 Registration Declined",
                     text: `
@@ -133,7 +133,7 @@ exports.sendLMSCred = async (req, res) => {
         for (const account of accounts) {
             try {
                 await mailer.sendMail({
-                    from: "no-reply@trojans.id",
+                    from: "no-reply@trojans.site",
                     to: account.responseEmail,
                     subject: "AKUN UJIAN TROJANS 2024",
                     text: `
@@ -143,10 +143,10 @@ username: ${account.username}
 password: ${account.password}
 
 Trojans 2024 will be held using Safe Exam Browser. We highly recommend the participants to access this tutorial via:
-http://trojans.id/GuideBook
+http://trojans.site/GuideBook
 
 This configuration file can be downloaded via:
-http://trojans.id/sebConfiguration
+http://trojans.site/sebConfiguration
 
 SEB password: tr0j4ns!
 
@@ -184,7 +184,7 @@ exports.broadcast = (emails) => {
     }).then(responses => {
             responses.forEach(response => {
             mailer.sendMail({
-                from: "no-reply@trojans.id",
+                from: "no-reply@trojans.site",
                 to: response.email,
                 subject: "TROJANS 2024",
                 text: `

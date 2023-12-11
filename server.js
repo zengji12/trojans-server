@@ -5,6 +5,7 @@ const https = require('https');
 const fs = require('fs');
 const busboy = require('connect-busboy');
 require('dotenv').config();
+const winston = require('winston');
 
 const app = express();
 
@@ -21,6 +22,21 @@ const corsOptions = {
 app.use(bodyParser.json());
 app.use(cors());
 app.use(busboy());
+
+// Konfigurasi logger
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+      new winston.transports.File({ filename: 'combined.log' }),
+    ],
+  });
+  
+  // Middleware untuk menangkap log dari setiap permintaan
+  app.use((req, res, next) => {
+    logger.info(`${req.method} ${req.url}`);
+    next();
+  });
 
 // Routes and other server logic go here
 app.get("/", (req, res) => {
