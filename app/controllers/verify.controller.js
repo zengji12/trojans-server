@@ -4,6 +4,31 @@ const Account = db.accounts;
 const DeletedResponse = db.deletedResponses;
 const mailer = require("../configs/mail.config")
 
+exports.all = async (req, res) => {
+    try {
+        const responses = await Response.findAll();
+        const responseData = [];
+
+        responses.forEach((response) => {
+            responseData.push({
+                name: response.name,
+                email: response.email,
+                isVerified: response.isVerified 
+            });
+        });
+
+        res.status(200).json({
+            success: true,
+            data: responseData,
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
+    }
+};
+
 exports.verify = async (req, res) => {
     const { name, emails } = req.body;
 
