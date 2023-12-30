@@ -1,5 +1,5 @@
-const controller = require("../controllers/auth.controller.js");
-const { authJwt } = require("../middleware");
+const controller = require("../controllers/auth.controller");
+const authJwt = require("../middleware/authJwt");
 const { body } = require('express-validator');
 
 module.exports = function(app) {
@@ -12,12 +12,11 @@ module.exports = function(app) {
     });
 
     app.post("/api/auth/signin", [
-        body('npm').isNumeric(),
+        body('username').isLength({min: 1}),
         body('password').isLength({min: 1}),
     ], controller.signin);
 
     app.post("/api/auth/refreshtoken", [
-        body('version').isLength({min: 1, max: 15})
     ], controller.refreshToken);
 
     app.post("/api/auth/changePassword", [
@@ -26,8 +25,12 @@ module.exports = function(app) {
         body('newPassword').isLength({min: 8}).withMessage('minimal is 8 character')
     ], controller.changePassword);
 
-    app.post("/api/auth/resetPassword", [
-        authJwt.verifyToken,
-        body('npm').isNumeric()
-    ], controller.resetPassword);
+    // app.get("/api/dashboard", [
+    //     authJwt.verifyToken
+    // ], controller.dashboard);
+
+    // app.post("/api/auth/resetPassword", [
+    //     authJwt.verifyToken,
+    //     body('npm').isNumeric()
+    // ], controller.resetPassword);
 };

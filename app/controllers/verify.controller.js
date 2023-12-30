@@ -1,7 +1,7 @@
 const db = require("../models");
 const Response = db.responses;
 const Account = db.accounts;
-const DeletedResponse = db.deletedResponses;
+// const DeletedResponse = db.deletedResponses;
 const mailer = require("../configs/mail.config")
 
 exports.all = async (req, res) => {
@@ -30,6 +30,11 @@ exports.all = async (req, res) => {
 };
 
 exports.verify = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send({ message: "Invalid input", errors: errors.array() });
+    }
+
     const { name, emails } = req.body;
 
     if (!name||!emails) {
@@ -88,6 +93,11 @@ Trojans 2024
 };
 
 exports.decline = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send({ message: "Invalid input", errors: errors.array() });
+    }
+
     const { name, emails } = req.body;
 
     if (!name||!emails) {
@@ -142,6 +152,11 @@ Trojans 2024
 };
 
 exports.sendLMSCred = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send({ message: "Invalid input", errors: errors.array() });
+    }
+
     const { name, emails } = req.body;
 
     if (!name || !emails) {

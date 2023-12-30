@@ -25,7 +25,7 @@ db.sequelize = sequelize;
 db.responses = require("./responses.js")(sequelize, Sequelize);
 db.deletedResponses = require("./deleted_responses.js")(sequelize, Sequelize);
 db.accounts = require("./accounts.js")(sequelize, Sequelize);
-db.admin = require("./admin.js")(sequelize, Sequelize);
+db.admin = require("./auth.js")(sequelize, Sequelize);
 
 db.responses.hasOne(db.accounts);
 db.accounts.belongsTo(db.responses);

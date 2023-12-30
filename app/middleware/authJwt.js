@@ -1,7 +1,5 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config.js");
-const db = require("../models");
-const Admin = db.admin;
 
 verifyToken = (req, res, next) => {
     let token = req.headers.authorization;
@@ -19,7 +17,7 @@ verifyToken = (req, res, next) => {
                 message: "Unauthorized!"
             });
         }
-        req.npm = decoded.npm;
+        req.username = decoded.username;
         next();
     });
 };
@@ -27,4 +25,5 @@ verifyToken = (req, res, next) => {
 const authJwt = {
     verifyToken: verifyToken
 };
+
 module.exports = authJwt;

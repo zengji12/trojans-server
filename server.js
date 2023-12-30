@@ -78,6 +78,8 @@ cron.schedule('0 0 * * *', function () {
 
 require('./app/routes/form.routes')(app);
 require('./app/routes/static.routes')(app);
+require('./app/routes/admin.routes')(app);
+require('./app/routes/auth.routes')(app);
 
 // Start server
 if (process.env.SSL_MODE === 'ON') {

@@ -1,5 +1,4 @@
 const controller = require("../controllers/form.controller");
-const verify = require("../controllers/verify.controller");
 const { body } = require('express-validator')
 const multer = require('multer')
 const { authJwt } = require("../middleware");
@@ -26,21 +25,4 @@ module.exports = function (app) {
         body('transferProofId').isLength({ min: 1 }),
         body('commentProofId').isLength({ min: 1 }),
     ], controller.register);
-
-    app.get("/api/renponse/all", [authJwt.verifyToken], verify.all);
-
-    app.post("/api/renponse/verify", [
-        body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
-    ], verify.verify);
-
-    app.post("/api/response/decline",[
-        body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
-    ], verify.decline);
-
-    app.post("/api/response/lmsaccount",[
-        body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
-    ], verify.sendLMSCred)
 };
