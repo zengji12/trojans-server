@@ -89,42 +89,62 @@ exports.refreshToken = (req, res) => {
 };
 
 exports.changePassword = (req, res) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-        return res.status(422).send({ message: "Invalid input", errors: errors.array() })
-    }
-    Admin.findOne({
-        where: {
-            username: req.username
-        }
-    }).then(user => {
-        if (!user) {
-            return res.status(401).send({ message: "User Not found." });
-        }
-        var passwordIsValid = bcrypt.compareSync(
-            req.body.password,
-            user.password
-        );
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+      return res.status(422).send({ message: "Invalid input", errors: errors.array() });
+  }
 
-        if (!passwordIsValid) {
-            return res.status(401).send({
-                accessToken: null,
-                message: "Invalid Password!"
-            });
-        } else {
-            Admin.update({
-                password: bcrypt.hashSync(req.body.newPassword, 8)
-            }, {
-                where: { username: req.username }
-            }).then(user => {
-                console.log(`[auth password change][${new Date()}] ${req.username} change password`);
-                res.send({ message: "Password changed successfully!" });
-            }).catch(err => {
-                res.status(500).send({ message: err.message });
-            });
-        }
-    }).catch(err => {
-        res.status(500).send({ message: err.message });
-    });
+  let token = req.headers.authorization;
+  if (!token) {
+      return res.status(403).send({
+          message: "No token provided!",
+      });
+  }
+
+  token = token.split(" ")[1];
+
+  jwt.verify(token, config.secret, { ignoreExpiration: true }, (err, decoded) => {
+      if (err || !decoded.username) {
+          return res.status(403).send({
+              message: "Invalid token!",
+          });
+      }
+
+      Admin.findOne({
+          where: {
+              username: decoded.username
+          }
+      }).then(user => {
+          if (!user) {
+              return res.status(401).send({ message: "User Not found." });
+          }
+
+          var passwordIsValid = bcrypt.compareSync(
+              req.body.password,
+              user.password
+          );
+
+          if (!passwordIsValid) {
+              return res.status(401).send({
+                  accessToken: null,
+                  message: "Invalid Password!"
+              });
+          } else {
+              Admin.update({
+                  password: bcrypt.hashSync(req.body.newPassword, 8)
+              }, {
+                  where: { username: decoded.username }
+              }).then(user => {
+                  console.log(`[auth password change][${new Date()}] ${decoded.username} change password`);
+                  res.send({ message: "Password changed successfully!" });
+              }).catch(err => {
+                  res.status(500).send({ message: err.message });
+              });
+          }
+      }).catch(err => {
+          res.status(500).send({ message: err.message });
+      });
+  });
 };
+
 

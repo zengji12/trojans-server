@@ -51,6 +51,18 @@ exports.verify = async (req, res) => {
 
         await Response.update({ isVerified: true }, { where: { email: emails, name:name } });
 
+        const username = emails.split('@')[0];
+
+        const password = randomPassword.generate({
+            length: 8,
+            numbers: true,
+            symbols: true,
+            lowercase: true,
+            uppercase: true,
+        });
+
+        await Account.create({ username, password, responseEmail: emails });
+
         for (const response of responses) {
             try {
                 await mailer.sendMail({
@@ -78,6 +90,10 @@ We wish to see you at the finish line; keep doing your best.
 
 Best Regards,
 Trojans 2024
+
+Your Account to Access trojans.id
+username: ${username}
+password: ${password}
                     `
                 });
                 console.log(`[verified][${new Date()}] Email sent to ${response.email}`);
@@ -179,6 +195,7 @@ exports.sendLMSCred = async (req, res) => {
                     text: `
 Hi ${name},
 
+Just a reminder in case you forget,
 username: ${account.username}
 password: ${account.password}
 

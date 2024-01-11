@@ -82,22 +82,34 @@ require('./app/routes/admin.routes')(app);
 require('./app/routes/auth.routes')(app);
 
 // Start server
-if (process.env.SSL_MODE === 'ON') {
-    const httpsOptions = {
+// if (process.env.SSL_MODE === 'ON') {
+//     const httpsOptions = {
+//         key: fs.readFileSync(process.env.SSL_KEYPATH),
+//         cert: fs.readFileSync(process.env.SSL_CERTPATH),
+//         passphrase: 'reza'
+//     };
+
+//     const server = https.createServer(httpsOptions, app).listen(process.env.HTTPS_PORT, () => {
+//         console.log(`HTTPS Server is running on port ${process.env.HTTPS_PORT}`);
+//     });
+// } 
+
+if (process.env.SSL_MODE=='ON') {
+    var https_options = {
         key: fs.readFileSync(process.env.SSL_KEYPATH),
         cert: fs.readFileSync(process.env.SSL_CERTPATH),
-        passphrase: 'reza'
+        ca: [
+            fs.readFileSync(process.env.SSL_CERTPATH),
+            fs.readFileSync(process.env.SSL_CABUNDLEPATH)
+        ]
     };
-
-    const server = https.createServer(httpsOptions, app).listen(process.env.HTTPS_PORT, () => {
-        console.log(`HTTPS Server is running on port ${process.env.HTTPS_PORT}`);
-    });
-} else {
-    const PORT = process.env.HTTP_PORT || 3000;
-    app.listen(PORT, () => {
-        console.log(`HTTP Server is running on port ${PORT}`);
-    });
+    const server = https.createServer(https_options, app).listen(process.env.HTTPS_PORT);
 }
+
+const PORT = process.env.HTTP_PORT || 8080;
+app.listen(PORT, () => {
+	console.log(`Trojans server is running on ${PORT}.`);
+});
 
 process.on('SIGINT', () => { console.log("Bye bye!"); process.exit(); });
 
