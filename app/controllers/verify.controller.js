@@ -1,6 +1,7 @@
 const db = require("../models");
 const Response = db.responses;
 const Account = db.accounts;
+const fs = require('fs');
 // const DeletedResponse = db.deletedResponses;
 const mailer = require("../configs/mail.config")
 
@@ -13,10 +14,12 @@ exports.all = async (req, res) => {
             responseData.push({
                 name: response.name,
                 email: response.email,
-                isVerified: response.isVerified 
+                isVerified: response.isVerified,
+                comment: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_comment.png',
+                follow: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_follow.png',
+                transfer: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_transfer.png',
             });
         });
-
         res.status(200).json({
             success: true,
             data: responseData,

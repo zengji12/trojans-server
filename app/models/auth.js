@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Admin = sequelize.define("admin", {
+    const Admin = sequelize.define("admins", {
         npm: {
             type: Sequelize.STRING,
             unique: true,

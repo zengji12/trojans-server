@@ -94,6 +94,7 @@ require('./app/routes/auth.routes')(app);
 //     });
 // } 
 
+// Start server
 if (process.env.SSL_MODE=='ON') {
     var https_options = {
         key: fs.readFileSync(process.env.SSL_KEYPATH),
@@ -103,12 +104,15 @@ if (process.env.SSL_MODE=='ON') {
             fs.readFileSync(process.env.SSL_CABUNDLEPATH)
         ]
     };
-    const server = https.createServer(https_options, app).listen(process.env.HTTPS_PORT);
+    const HTTPSPORT = process.env.HTTPS_PORT || 8060;
+    const server = https.createServer(https_options, app).listen(HTTPSPORT, 'localhost', () => {
+        console.log(`Trojans server is running on ${HTTPSPORT}.`);
+    });
 }
 
-const PORT = process.env.HTTP_PORT || 8080;
+const PORT = process.env.HTTP_PORT || 8040;
 app.listen(PORT, () => {
-	console.log(`Trojans server is running on ${PORT}.`);
+  console.log(`Trojans server is running on ${PORT}.`);
 });
 
 process.on('SIGINT', () => { console.log("Bye bye!"); process.exit(); });
