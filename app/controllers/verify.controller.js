@@ -18,6 +18,7 @@ exports.all = async (req, res) => {
                 comment: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_comment.png',
                 follow: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_follow.png',
                 transfer: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_transfer.png',
+                poster: '103.157.97.7:8111/MqKWCubcX971qfC5jISs7o5Vxhm7xTmkf84jfzeVvnZe1FgIAqPkEO0s3v2fZ5AFcXDbL4I96Fha4zoqPkyMlTF3pUts5aCmqGRD/' + response.email + '_poster.png',
             });
         });
         res.status(200).json({
@@ -69,7 +70,7 @@ exports.verify = async (req, res) => {
         for (const response of responses) {
             try {
                 await mailer.sendMail({
-                    from: "no-reply@trojans.site",
+                    from: "no-reply@trojans.id",
                     to: response.email,
                     subject: "TROJANS 2024 Registration Verified",
                     text: `
@@ -77,17 +78,17 @@ Hi ${response.name},
 Congratulations, your registration has been successfully verified by us. Please continue to the next step in Trojans 2024 registration process!!
 
 You have fulfilled all of the requirements as follows:
-Already to upload story Instagram about ones of trojans_id's post, already follow trojans_id on Twitter and retweet, and also already follow Instagram account of Trojans 2024
+Already to upload story Instagram about ones of trojans_id's post, already comment then tag 3 people at trojans_id on Instagram, and also already follow Instagram and Twitter account of Trojans 2024
 
 READY TO CONTINUE YOUR NEXT PROCESS?
 Click here to join the Telegram group of Trojans 2024 for further information
-https://trojans.site
+https://trojans.id
 
-📲 Instagram : @trojans_id
-✉️ Email    : humastrojans24@gmail.com
-📞 Telegram : +6285815011053 [ @trojans2024 ]
-📞 Whatsapp : +6285777637347 [ Sinta Permata ]
-📞 Line      : @dellapgbn [ Della Yustina ]
+📲 Instagram    : @trojans_id
+✉️ Email        : humastrojans24@gmail.com
+📞 Telegram     : +6285815011053 [ @trojans2024 ]
+📞 Whatsapp     : +6285777637347 [ Sinta Permata ]
+📞 Line         : @dellapgbn [ Della Yustina ]
 
 We wish to see you at the finish line; keep doing your best.
 
@@ -137,7 +138,7 @@ exports.decline = async (req, res) => {
                     await Response.update({ isVerified: false }, { where: { email: emails, name:name } });
                 }
                 await mailer.sendMail({
-                    from: "no-reply@trojans.site",
+                    from: "no-reply@trojans.id",
                     to: response.email,
                     subject: "TROJANS 2024 Registration Declined",
                     text: `
@@ -146,11 +147,12 @@ We hereby regret for your unsuccess registration. Please recheck the term and co
 
 If you have any other questions, you can contact our social media. 
                                             
-📲Instagram : @trojans_id
-✉️ Email    : humastrojans24@gmail.com
-📞 Telegram : +6285815011053 [ @trojans2024 ]
-📞 Whatsapp : +6285777637347 [ Sinta Permata ]
-📞Line      : @dellapgbn [ Della Yustina ]
+📲 Instagram    : @trojans_id
+✉️ Email        : humastrojans24@gmail.com
+📞 Telegram     : +6285815011053 [ @trojans2024 ]
+📞 Whatsapp     : +6285777637347 [ Sinta Permata ]
+📞 Line         : @dellapgbn [ Della Yustina ]
+
 
 We wish to see you at the finish line, keep doing your best. 
                                                             
@@ -192,7 +194,7 @@ exports.sendLMSCred = async (req, res) => {
         for (const account of accounts) {
             try {
                 await mailer.sendMail({
-                    from: "no-reply@trojans.site",
+                    from: "no-reply@trojans.id",
                     to: account.responseEmail,
                     subject: "AKUN UJIAN TROJANS 2024",
                     text: `
@@ -203,20 +205,20 @@ username: ${account.username}
 password: ${account.password}
 
 Trojans 2024 will be held using Safe Exam Browser. We highly recommend the participants to access this tutorial via:
-http://trojans.site/GuideBook
+http://trojans.id/GuideBook
 
 This configuration file can be downloaded via:
-http://trojans.site/sebConfiguration
+http://trojans.id/sebConfiguration
 
 SEB password: tr0j4ns!
 
 If you have any other questions, you can contact our social media. 
                                             
-📲Instagram : @trojans_id
-✉️ Email    : humastrojans24@gmail.com
-📞 Telegram : +6285815011053 [ @trojans2024 ]
-📞 Whatsapp : +6285777637347 [ Sinta Permata ]
-📞 Line      : @dellapgbn [ Della Yustina ]
+📲 Instagram    : @trojans_id
+✉️ Email        : humastrojans24@gmail.com
+📞 Telegram     : +6285815011053 [ @trojans2024 ]
+📞 Whatsapp     : +6285777637347 [ Sinta Permata ]
+📞 Line         : @dellapgbn [ Della Yustina ]
 
 We wish to see you at the finish line, keep doing your best. 
                                                             
@@ -244,7 +246,7 @@ exports.broadcast = (emails) => {
     }).then(responses => {
             responses.forEach(response => {
             mailer.sendMail({
-                from: "no-reply@trojans.site",
+                from: "no-reply@trojans.id",
                 to: response.email,
                 subject: "TROJANS 2024",
                 text: `

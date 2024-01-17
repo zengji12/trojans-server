@@ -24,5 +24,6 @@ module.exports = function (app) {
         body('followProofId').isLength({ min: 1 }),
         body('transferProofId').isLength({ min: 1 }),
         body('commentProofId').isLength({ min: 1 }),
+        body('posterProofId').isLength({ min: 1 }),
     ], controller.register);
 };

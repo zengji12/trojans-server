@@ -58,6 +58,7 @@ exports.register = (req, res) => {
             fs.renameSync(`${__dirname}/../exports/${req.body.transferProofId}`, `${__dirname}/../exports/${req.body.email}_transfer.${req.body.transferProofId.substring(0, 3)}`)
             fs.renameSync(`${__dirname}/../exports/${req.body.followProofId}`, `${__dirname}/../exports/${req.body.email}_follow.${req.body.followProofId.substring(0, 3)}`)
             fs.renameSync(`${__dirname}/../exports/${req.body.commentProofId}`, `${__dirname}/../exports/${req.body.email}_comment.${req.body.commentProofId.substring(0, 3)}`)
+            fs.renameSync(`${__dirname}/../exports/${req.body.posterProofId}`, `${__dirname}/../exports/${req.body.email}_poster.${req.body.posterProofId.substring(0, 3)}`)
         } catch (error) {
             console.log(error);            
         }
@@ -70,7 +71,7 @@ exports.register = (req, res) => {
             isVerified: false,
         }).then(user => {
             mailer.sendMail({
-                from: "no-reply@trojans.site",
+                from: "no-reply@trojans.id",
                 to: req.body.email,
                 subject: "TROJANS 2024 Registration",
                 text: `
@@ -84,9 +85,11 @@ If up to 24x2 you haven't received a email respons, please contact us via our so
                 
 We wish to see you at the finish line, Keep doing your best.
                 
-✉️ Email : humastrojans23@gmail.com
-📞 Telegram : @trojans_id
-📞 Whatsapp : 089618710082
+📲 Instagram    : @trojans_id
+✉️ Email        : humastrojans24@gmail.com
+📞 Telegram     : +6285815011053 [ @trojans2024 ]
+📞 Whatsapp     : +6285777637347 [ Sinta Permata ]
+📞 Line         : @dellapgbn [ Della Yustina ]
                 
 Best Regards,
 Trojans 2024
@@ -126,6 +129,7 @@ exports.manualRegister = (body) => {
             fs.renameSync(`${__dirname}/../exports/${body.transferProofId}`, `${__dirname}/../exports/${body.email}_transfer.${body.transferProofId.substring(0, 3)}`)
             fs.renameSync(`${__dirname}/../exports/${body.followProofId}`, `${__dirname}/../exports/${body.email}_follow.${body.followProofId.substring(0, 3)}`)
             fs.renameSync(`${__dirname}/../exports/${body.commentProofId}`, `${__dirname}/../exports/${body.email}_comment.${body.commentProofId.substring(0, 3)}`)
+            fs.renameSync(`${__dirname}/../exports/${body.posterProofId}`, `${__dirname}/../exports/${body.email}_poster.${body.posterProofId.substring(0, 3)}`)
         } catch (error) {
             console.log(error);            
         }
@@ -138,7 +142,7 @@ exports.manualRegister = (body) => {
             isVerified: false,
         }).then(user => {
             mailer.sendMail({
-                from: "no-reply@trojans.site",
+                from: "no-reply@trojans.id",
                 to: body.email,
                 subject: "TROJANS 2024 Registration",
                 text: `
@@ -152,9 +156,11 @@ If up to 24x2 you haven't received a email respons, please contact us via our so
                 
 We wish to see you at the finish line, Keep doing your best.
                 
-✉️ Email : humastrojans23@gmail.com
-📞 Telegram : @trojans_id
-📞 Whatsapp : 089618710082
+📲 Instagram    : @trojans_id
+✉️ Email        : humastrojans24@gmail.com
+📞 Telegram     : +6285815011053 [ @trojans2024 ]
+📞 Whatsapp     : +6285777637347 [ Sinta Permata ]
+📞 Line         : @dellapgbn [ Della Yustina ]
                 
 Best Regards,
 Trojans 2024
