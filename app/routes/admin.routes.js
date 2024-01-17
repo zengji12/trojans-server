@@ -16,18 +16,18 @@ module.exports = function(app) {
     app.post("/api/response/verify", [
         authJwt.verifyToken,
         body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
+        body('emails').trim().isEmail()
     ], verify.verify);
 
     app.post("/api/response/decline",[
         authJwt.verifyToken,
         body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
+        body('emails').trim().isEmail()
     ], verify.decline);
 
     app.post("/api/response/lmsaccount",[
         authJwt.verifyToken,
         body('name').isLength({ min: 1 }),
-        body('email').trim().isEmail()
+        body('emails').trim().isEmail()
     ], verify.sendLMSCred);
 };
